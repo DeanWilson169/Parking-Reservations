@@ -3,7 +3,6 @@ from Booking import Booking
 from BookingManager import BookingManager
 from Customer import Customer
 from datetime import date
-import pytest
 
 class TestBooking:
     class TestGetCustomer:
