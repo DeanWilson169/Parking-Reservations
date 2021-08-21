@@ -1,7 +1,4 @@
 class Customer:
-    name = ''
-    licencePlate = ''
-    customerBookings = []
 
     def __init__(self, name, licencePlate):
         self.name = name
@@ -16,6 +13,9 @@ class Customer:
 
     def getCustomerBookings(self):
         return self.customerBookings
+
+    def getCustomerRecord(self):
+        return [self.name, self.licencePlate]
 
     def assignNewBooking(self, booking):
         if len(self.customerBookings) > 0:

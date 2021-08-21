@@ -1,26 +1,26 @@
-from datetime import datetime
-
-
-class CarPark:
-    totalParkingBays = 0
-    availableParkingBays = []
-
+class Carpark:
+    
     def __init__(self, totalParkingBays):
         self.totalParkingBays = totalParkingBays
-        self.availableParkingBays = [None]*totalParkingBays
+        self.carparkBookings = []   
+        self.availableParkingBays = []
         for i in range(totalParkingBays):
-            self.availableParkingBays[i] = i+1
+            self.availableParkingBays.append(i+1)
         
     def getTotalParkingBays(self):
         return self.totalParkingBays
 
     def getAvailableParkingBays(self):
         return self.availableParkingBays
+
+    def getCarparkBookings(self):
+        return self.carparkBookings
     
-    def occupyAvailableParkingBay(self, parkingBayNumber):
+    def occupyAvailableParkingBay(self, parkingBayNumber, booking):
         for bay in self.availableParkingBays:
             if parkingBayNumber == bay:
                 self.availableParkingBays.remove(parkingBayNumber)
+                self.carparkBookings.append(booking)
 
     def determineAvailableParkingBay(self):
         availableBays = self.getAvailableParkingBays()

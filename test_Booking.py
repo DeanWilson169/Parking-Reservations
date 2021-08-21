@@ -1,41 +1,86 @@
-from CarPark import CarPark
+from Carpark import Carpark
 from Booking import Booking
-from CarPark import CarPark
+from BookingManager import BookingManager
+from Customer import Customer
+from datetime import date
 import pytest
 
 class TestBooking:
+    class TestGetCustomer:
 
-    class TestCreateBooking:
-        def test_successfulBookingMade(self):
-            carpark = CarPark(4)
-            booking = Booking.createBooking(self,'Alice','010121', carpark)
-            assert type(booking) == Booking
+        def test_getCustomer(self):
+            bookingDate = date(2022, 6, 1)
+            numberOfParkingBays = 4
+            carpark = Carpark(numberOfParkingBays)
+            
+            alice = Customer("Alice", '1ABC123')
+            booking = Booking(alice, bookingDate, carpark)
+            
+            assert booking.getCustomer() == alice
+    
+    class TestGetParkingBayNumber:
+       
+        def test_getFirstParkingBayWhenThereIsOnlyOneBookingMade(self):
+            numberOfParkingBays = 4
+            carpark = Carpark(numberOfParkingBays)
+            bookingDate = date(2022, 6, 1)
+            bookingManager = BookingManager()
+            
+            alice = Customer("Alice", '1ABC123')
+            booking = bookingManager.createBooking(alice, bookingDate, carpark)
+            
+            assert booking.getParkingBayNumber() == 1
         
-        def test_successfulBookingMadeWhenThereAre3RemainingParkingBays(self):
-            carpark = CarPark(4)
-            Booking.createBooking(self,'Alice','010121', carpark)
-            booking = Booking.createBooking(self,'Bob','010121', carpark)
-            assert type(booking) == Booking
+        def test_getSecondParkingBayWhenThereIsABookingMadeForTheFirstBay(self):
+            numberOfParkingBays = 4
+            carpark = Carpark(numberOfParkingBays)
+            bookingDate = date(2022, 6, 1)
+            bookingManager = BookingManager()
+            
+            alice = Customer("Alice", '1ABC123')
+            bookingManager.createBooking(alice, bookingDate, carpark)
 
-        def test_successfulBookingMadeWhenThereAre2RemainingParkingBays(self):
-            carpark = CarPark(4)
-            Booking.createBooking(self,'Alice','010121', carpark)
-            Booking.createBooking(self,'Bob','010121', carpark)
-            booking = Booking.createBooking(self,'Charlie','010121', carpark)
-            assert type(booking) == Booking
+            bob = Customer("Bob", '1DEF123')
+            booking2 = bookingManager.createBooking(bob, bookingDate, carpark)
 
-        def test_successfulBookingMadeWhenThereIs1RemainingParkingBay(self):
-            carpark = CarPark(4)
-            Booking.createBooking(self,'Alice','010121', carpark)
-            Booking.createBooking(self,'Bob','010121', carpark)
-            booking = Booking.createBooking(self,'Charlie','010121', carpark)
-            assert type(booking) == Booking
+            assert booking2.getParkingBayNumber() == 2
+    
+    class TestGetDateOfBooking:
+       
+        def test_getDateOfBooking(self):
+            bookingDate = date(2022, 6, 1)
+            numberOfParkingBays = 4
+
+            carpark = Carpark(numberOfParkingBays)
+
+            alice = Customer("Alice", '1ABC123')
+            booking = Booking(alice, bookingDate, carpark)
+
+            assert booking.getDateOfBooking() == bookingDate
+
+    class TestGetDateBookingWasMade:
         
-        def test_unsuccessfulBookingWhenCarparkIsFull(self):
-            carpark = CarPark(4)
-            Booking.createBooking(self, "Alice", '010121', carpark)
-            Booking.createBooking(self, "Bob", '010121', carpark)
-            Booking.createBooking(self, "Charlie", '010121', carpark)
-            Booking.createBooking(self, "Dave", '010121', carpark)
-            with pytest.raises(Exception):
-                Booking.createBooking(self,'Ed','010121', carpark)
+        def test_getDateBookingWasMade(self):
+            dateBookingWasMade = date.today()
+            bookingDate = date(2022, 6, 1)
+            numberOfParkingBays = 4
+
+            carpark = Carpark(numberOfParkingBays)
+            
+            alice = Customer("Alice", '1ABC123')
+            booking = Booking(alice, bookingDate, carpark)
+            
+            assert booking.getDateBookingWasMade() == dateBookingWasMade
+    
+    class TestCarparkBookingWasMadeFor:
+        
+        def test_getCarparkBookingWasMadeFor(self):
+            bookingDate = date(2022, 6, 1)
+            numberOfParkingBays = 4
+
+            carpark = Carpark(numberOfParkingBays)
+            
+            alice = Customer("Alice", '1ABC123')
+            booking = Booking(alice, bookingDate, carpark)
+            
+            assert booking.getCarparkBookingWasMadeFor() == carpark
