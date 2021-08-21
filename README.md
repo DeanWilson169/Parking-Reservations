@@ -2,21 +2,21 @@
 
 1. install pytest with the following command:
 
-'''md
+```md
     pip install -U pytest
-'''
+```
 2. Check that you installed the correct version
 
-'''md
+```md
     $ pytest --version
     pytest 6.2.4
-'''
+```
 
 3. Run the following command to run all tests
 
-'''md
+```md
     pytest
-'''
+```
 
 # Assumptions
 
@@ -45,9 +45,3 @@ Brings all the components together. Handles the creation of bookings, can retrie
 # Trade-offs
 
 I don't believe I made any!
-
-# Note
-
-Thanks for taking the time to look at my work.
-
-- Dean Wilson
