@@ -21,6 +21,7 @@
 # Assumptions
 
 - The date for the booking comes from somewhere else, e.g. user input
+- A booking can only be made for the entire day
 
 # Design Decisions
 
